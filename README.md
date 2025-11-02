@@ -18,6 +18,12 @@ This project uses a camera to read QR codes and play the corresponding music fil
   -t qr-player .
    ```
 
+   ```bash
+   docker buildexport VIDEO_GID=$(getent group video | cut -d: -f3)
+      export AUDIO_GID=$(getent group audio | cut -d: -f3)
+      docker compose build
+   ```
+
 2. **Run the Docker container:**
 
    You need to grant the container access to your camera and audio devices. The device path for the camera is usually `/dev/video0`, and for the audio device is usually `/dev/snd`.
@@ -28,6 +34,10 @@ This project uses a camera to read QR codes and play the corresponding music fil
       --device=/dev/snd \
       -v ~/Music:/home/appuser/Music \
       qr-player
+   ```
+
+   ```bash
+   docker compose up
    ```
 
 ## Usage

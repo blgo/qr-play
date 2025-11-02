@@ -1,0 +1,27 @@
+
+services:
+  qr-player:
+    build:
+      context: .
+      args:
+        VIDEO_GID: ${VIDEO_GID}
+        AUDIO_GID: ${AUDIO_GID}
+    image: qr-player
+    container_name: qr-player
+    devices:
+      - "/dev/video0:/dev/video0"
+      - "/dev/snd:/dev/snd"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+      - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
+    volumes:
+      - "${XDG_RUNTIME_DIR}/pulse:${XDG_RUNTIME_DIR}/pulse"
+      - "/tmp/.X11-unix:/tmp/.X11-unix"
+      - "~/Music:/home/appuser/music"
+    group_add:
+      - "video"
+      - "audio"
+    stdin_open: true
+    tty: true
+    restart: "no"
