@@ -39,5 +39,8 @@ COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/pytho
 COPY src/ .
 COPY music/ ./music/
 
+# Set environment variables
+ENV PYTHONUNBUFFERED=True
+
 # Command to run the application
 CMD ["python", "main.py"]
