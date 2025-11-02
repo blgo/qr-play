@@ -9,8 +9,10 @@ services:
     image: qr-player
     container_name: qr-player
     devices:
-      - "/dev/video0:/dev/video0"
+      - "/dev/video17:/dev/video17"
+      - /dev/vchiq:/dev/vchiq
       - "/dev/snd:/dev/snd"
+    privileged: true
     environment:
       - DISPLAY=${DISPLAY}
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}

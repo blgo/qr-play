@@ -51,3 +51,7 @@ The script will play the music file in a loop. If the same QR code is scanned tw
 ## ARM Compatibility
 
 The Docker image is built with ARM compatibility, so it can be deployed on a Raspberry Pi.
+
+
+need to run this locally in raspberry to work:
+rpicam-vid -t 0 --width 640 --height 480 --codec mjpeg -o /dev/video17 --inline

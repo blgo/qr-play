@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 # Initialize the camera
 logging.debug("Initializing camera...")
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("/dev/video17")
 if not cap.isOpened():
     logging.error("Cannot open camera")
     exit()
