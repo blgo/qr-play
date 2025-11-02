@@ -19,9 +19,9 @@ This project uses a camera to read QR codes and play the corresponding music fil
    ```
 
    ```bash
-   docker buildexport VIDEO_GID=$(getent group video | cut -d: -f3)
-      export AUDIO_GID=$(getent group audio | cut -d: -f3)
-      docker compose build
+   export VIDEO_GID=$(getent group video | cut -d: -f3)
+   export AUDIO_GID=$(getent group audio | cut -d: -f3)
+   docker compose build
    ```
 
 2. **Run the Docker container:**

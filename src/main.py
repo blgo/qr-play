@@ -47,7 +47,7 @@ music_dir = "music"
 logging.debug(f"Music directory set to: {music_dir}")
 
 while True:
-    logging.debug("Reading frame from camera.")
+    # logging.debug("Reading frame from camera.")
     # Read a frame from the camera
     ret, frame = cap.read()
 
