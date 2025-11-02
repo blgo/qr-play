@@ -1,15 +1,22 @@
 
 import cv2
 from pyzbar import pyzbar
-import pygame
 import time
 import os
+import subprocess
 
 # Initialize the camera
 cap = cv2.VideoCapture(0)
 
-# Initialize pygame
-pygame.init()
+vlc_process = None
+
+def play_with_vlc(file_path):
+    global vlc_process
+    # Stop old VLC instance
+    if vlc_process and vlc_process.poll() is None:
+        vlc_process.terminate()
+    # Start new VLC in loop
+    vlc_process = subprocess.Popen(["cvlc", "--loop", file_path])
 
 # Set to store previously scanned QR codes
 scanned_codes = set()
@@ -41,14 +48,12 @@ while True:
                 if os.path.exists(music_file):
                     print(f"Playing {music_file}")
                     # Load and play the music file in a loop
-                    pygame.mixer.music.load(music_file)
-                    pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+                    play_with_vlc(music_file)
                 else:
                     print(f"Error: {music_file} not found.")
 
     # Wait for 0.5 seconds
     time.sleep(0.5)
 
-# Release the camera and quit pygame
+# Release the camera and quit
 cap.release()
-pygame.quit()

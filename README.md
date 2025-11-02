@@ -12,7 +12,10 @@ This project uses a camera to read QR codes and play the corresponding music fil
 1. **Build the Docker image:**
 
    ```bash
-   docker build -t qr-player .
+   docker build \
+  --build-arg VIDEO_GID=$(getent group video | cut -d: -f3) \
+  --build-arg AUDIO_GID=$(getent group audio | cut -d: -f3) \
+  -t qr-player .
    ```
 
 2. **Run the Docker container:**
@@ -20,18 +23,11 @@ This project uses a camera to read QR codes and play the corresponding music fil
    You need to grant the container access to your camera and audio devices. The device path for the camera is usually `/dev/video0`, and for the audio device is usually `/dev/snd`.
 
    ```bash
-   docker run -it --rm \                        [130] main?
-  --device=/dev/video0 \
-  --device=/dev/video1 \
-  --device=/dev/snd \
-  --group-add audio \
-  --group-add video \
-  --env DISPLAY=$DISPLAY \
-  --env XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR \
-  --env PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \ 
-  -v /run/user/$(id -u)/pulse:/run/user/$(id -u)/pulse \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  qr-player
+      docker run -it --rm \
+      --device=/dev/video0 \
+      --device=/dev/snd \
+      -v ~/Music:/home/appuser/Music \
+      qr-player
    ```
 
 ## Usage
