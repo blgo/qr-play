@@ -56,8 +56,8 @@ while True:
         # Decode QR codes
         barcodes = pyzbar.decode(frame)
 
-        if not barcodes:
-            logging.debug("No QR codes found in frame.")
+        # if not barcodes:
+            # logging.debug("No QR codes found in frame.")
 
         for barcode in barcodes:
             # Get the data from the QR code
@@ -70,7 +70,7 @@ while True:
                 last_qr_code = qr_data
 
                 # Save a snapshot
-                snapshot_filename = f"snapshot-{datetime.now().strftime('%Y%m%d-%H%M%S')}.jpeg"
+                snapshot_filename = os.path.join(music_dir, f"snapshot-{datetime.now().strftime('%Y%m%d-%H%M%S')}.jpeg")
                 logging.debug(f"Saving snapshot to {snapshot_filename}")
                 cv2.imwrite(snapshot_filename, frame)
 
@@ -109,7 +109,7 @@ while True:
         logging.error("Failed to read frame from camera.")
 
     # Wait for 0.5 seconds
-    logging.debug("Waiting for 0.5 seconds.")
+    # logging.debug("Waiting for 0.5 seconds.")
     time.sleep(0.5)
 
 # Release the camera and quit
