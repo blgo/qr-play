@@ -43,4 +43,5 @@ COPY music/ ./music/
 ENV PYTHONUNBUFFERED=True
 
 # Command to run the application
-CMD ["python", "main.py"]
+# CMD ["python", "main.py"]
+CMD ["dbus-run-session", "--", "python", "main.py"]
