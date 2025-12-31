@@ -9,11 +9,11 @@ from datetime import datetime, timedelta
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Initialize the camera
 logging.debug("Initializing camera...")
-cap = cv2.VideoCapture("/dev/video17")
+cap = cv2.VideoCapture("/dev/video10")
 if not cap.isOpened():
     logging.error("Cannot open camera")
     exit()
@@ -61,7 +61,7 @@ while True:
 
         for barcode in barcodes:
             # Get the data from the QR code
-            qr_data = barcode.data.decode("utf-8")
+            qr_data = barcode.data.decode("utf-8").replace("http://", "")
             logging.debug(f"Decoded QR data: {qr_data}")
 
             # If the QR code has not been scanned before
@@ -70,9 +70,9 @@ while True:
                 last_qr_code = qr_data
 
                 # Save a snapshot
-                snapshot_filename = os.path.join(music_dir, f"snapshot-{datetime.now().strftime('%Y%m%d-%H%M%S')}.jpeg")
-                logging.debug(f"Saving snapshot to {snapshot_filename}")
-                cv2.imwrite(snapshot_filename, frame)
+                # snapshot_filename = os.path.join(music_dir, f"snapshot-{datetime.now().strftime('%Y%m%d-%H%M%S')}.jpeg")
+                # logging.debug(f"Saving snapshot to {snapshot_filename}")
+                # cv2.imwrite(snapshot_filename, frame)
 
 
                 if qr_data == "random":

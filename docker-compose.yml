@@ -9,10 +9,9 @@ services:
     image: qr-player
     container_name: qr-player
     devices:
-      - "/dev/video17:/dev/video17"
+      - "/dev/video10:/dev/video10"
       - /dev/vchiq:/dev/vchiq
       - "/dev/snd:/dev/snd"
-    privileged: true
     environment:
       - DISPLAY=${DISPLAY}
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
@@ -20,10 +19,10 @@ services:
     volumes:
       - "${XDG_RUNTIME_DIR}/pulse:${XDG_RUNTIME_DIR}/pulse"
       - "/tmp/.X11-unix:/tmp/.X11-unix"
-      - "~/Music:/home/appuser/music"
+      - "/home/blgo/Music:/home/appuser/music"
     group_add:
       - "video"
       - "audio"
     stdin_open: true
     tty: true
-    restart: "no"
+    restart: "always"
