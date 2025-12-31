@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libasound2 \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    vlc v4l-utils ffmpeg alsa-utils \
+    vlc v4l-utils ffmpeg alsa-utils playerctl \
     libsm6 libxext6 libxrender-dev libgl1
 
 # --- Create non-root user with host-matched video/audio GIDs ---

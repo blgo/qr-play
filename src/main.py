@@ -41,6 +41,8 @@ def stop_vlc():
 # Set to store previously scanned QR codes
 last_qr_code = ""
 last_random_trigger_time = datetime.min
+last_next_trigger_time = datetime.min
+last_previous_trigger_time = datetime.min
 
 # Directory where music files are stored
 music_dir = "music"
@@ -93,6 +95,20 @@ while True:
                     logging.info("Stopping playback.")
                     music_file="stop"
                     stop_vlc()
+                    continue
+                elif qr_data == "next":
+                    last_qr_code = ""
+                    if datetime.now() - last_next_trigger_time > timedelta(seconds=5):
+                        last_next_trigger_time = datetime.now()
+                        logging.info("Playing next track.")
+                        subprocess.run(["playerctl", "next", "-p", "vlc"])
+                    continue
+                elif qr_data == "previous":
+                    last_qr_code = ""
+                    if datetime.now() - last_previous_trigger_time > timedelta(seconds=5):
+                        last_previous_trigger_time = datetime.now()
+                        logging.info("Playing previous track.")
+                        subprocess.run(["playerctl", "previous", "-p", "vlc"])
                     continue
                 else:
                     music_file = os.path.join(music_dir, qr_data)
