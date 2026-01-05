@@ -20,9 +20,12 @@ services:
       - "${XDG_RUNTIME_DIR}/pulse:${XDG_RUNTIME_DIR}/pulse"
       - "/tmp/.X11-unix:/tmp/.X11-unix"
       - "/home/blgo/Music:/home/appuser/music"
+      - "qr-player-db:/home/appuser/db"
     group_add:
       - "video"
       - "audio"
     stdin_open: true
     tty: true
     restart: "always"
+volumes:
+  qr-player-db:
